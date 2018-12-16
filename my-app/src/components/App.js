@@ -1,60 +1,66 @@
 import React, { Component } from 'react';
-import v4 from 'uuid/v4';
-import SignInForm from './SignInForm';
-import SingUpForm from './SingUpForm';
-import OrderHistoryList from './OrderHistoryList';
-import orderHistory from '../order-history.json';
-import DishesList from './DishesList';
-import DishFilter from './DishFilter';
-import menu from '../menu.json';
-import Comments from './Comments';
-import CommentList from './CommentList';
-import Header from './Header';
 
-const findDish = filter =>
-  menu.filter(dish => dish.name.toLowerCase().includes(filter.toLowerCase()));
+import menuList from './config/menu.json';
+import Table from './TableOrderHistory/index';
+
+import Header from './Header/index';
+
+import FilterMenu from './FilterMenu/index';
+import Menu from './Menu/index';
+
+// forms
+import SignIn from './Sign-in/index';
+import SignUp from './Sign-up/index';
+
+// reviews
+import NodeEditor from './NoteEditor/index';
+import NodeList from './NodeList/index';
+
+const filterMenu = filter =>
+  menuList.filter(item =>
+    item.name.toLowerCase().includes(filter.toLowerCase()),
+  );
 
 class App extends Component {
   state = {
+    notes: [],
     filter: '',
-    comments: [],
   };
 
-  handleFilterChange = e => {
-    this.setState({
-      filter: e.target.value,
-    });
-  };
-
-  handleAddComments = (text, rate) => {
+  handleSubmitNodeEditor = (text, rate) => {
     this.setState(prevState => ({
-      comments: [
-        {
-          id: v4(),
-          text,
-          rate,
-        },
-        ...prevState.comments,
-      ],
+      notes: [{ id: Date.now(), text, rate }, ...prevState.notes],
     }));
   };
 
+  handleChangeFilter = ({ target: { value } }) => {
+    this.setState({
+      filter: value,
+    });
+  };
+
   render() {
-    const { filter, comments } = this.state;
-    const filteredMenu = findDish(filter, menu);
+    const { notes, filter } = this.state;
+
+    const filteredMenu = filterMenu(filter);
 
     return (
       <div>
         <Header />
-        <h2> Sing in </h2> <SignInForm />
         <hr />
-        <h2> Sing up </h2> <SingUpForm />
+        <Table />
         <hr />
-        <OrderHistoryList orderHistory={orderHistory} /> <hr />
-        <DishFilter filter={filter} onFilterChange={this.handleFilterChange} />
-        <DishesList menu={filteredMenu} /> <hr />
-        <Comments onSubmit={this.handleAddComments} />
-        <CommentList comments={comments} />
+        <FilterMenu
+          filter={filter}
+          handleChangeFilter={this.handleChangeFilter}
+        />
+        <Menu menuList={filteredMenu} />
+        <hr />
+        <SignIn />
+        <SignUp />
+        <hr />
+        <NodeEditor onSubmit={this.handleSubmitNodeEditor} />
+        <NodeList notes={notes} />
       </div>
     );
   }
