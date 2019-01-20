@@ -18,7 +18,6 @@ export default class SignUp extends Component {
   };
 
   handleSubmit = e => {
-    // console.log(this.state);
     e.preventDefault();
 
     this.setState({ ...INITIAL_STATE });
@@ -45,7 +44,7 @@ export default class SignUp extends Component {
           placeholder="Email"
         />
         <input
-          type="phone"
+          type="tel"
           name="phone"
           value={phone}
           onChange={this.handleChangeInputs}

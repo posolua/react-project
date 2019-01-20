@@ -1,13 +1,22 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/no-onchange */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import optionList from '../config/option-list.json';
+import * as Api from '../services/api';
 
 export default class NoteEditor extends Component {
   state = {
     text: '',
     rate: '',
+    optionList: [],
   };
+
+  componentDidMount() {
+    Api.getAllList('optionList').then(item =>
+      this.setState({
+        optionList: item,
+      }),
+    );
+  }
 
   handleSubmit = e => {
     const { text, rate } = this.state;
@@ -29,7 +38,7 @@ export default class NoteEditor extends Component {
   };
 
   render() {
-    const { rate } = this.state;
+    const { rate, optionList } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>

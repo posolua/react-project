@@ -1,18 +1,16 @@
 import React from 'react';
-import Logo from '../Logo/index';
-import Nav from '../Navigation/index';
-import UserMenu from '../UserMenu/index';
-import logo from '../img/dish.png';
-import avatar from '../img/bart.png';
-import style from './header.css';
+import Logo from './Logo/index';
+import Nav from './Navigation/index';
+import UserMenu from './UserMenu/index';
+import s from './header.module.css';
 
 const Header = () => (
-  <header className={style.header}>
-    <div className={style.leftSide}>
-      <Logo src={logo} />
+  <header className={s.header}>
+    <div className={s.leftSide}>
+      <Logo />
       <Nav />
     </div>
-    <UserMenu name="Bart Simpson" src={avatar} />
+    <UserMenu />
   </header>
 );
 

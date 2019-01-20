@@ -1,8 +1,6 @@
 import React from 'react';
-import history from '../config/order-history.json';
-import historyTitles from '../config/order-history-titles.json';
 
-const Table = () => (
+const Table = ({ historyTitles, listHistory }) => (
   <table>
     <tbody>
       <tr>
@@ -10,7 +8,7 @@ const Table = () => (
           <th key={item.title}>{item.title}</th>
         ))}
       </tr>
-      {history.map(item => (
+      {listHistory.map(item => (
         <tr key={item.id}>
           <td>{item.date}</td>
           <td>{item.price}</td>
