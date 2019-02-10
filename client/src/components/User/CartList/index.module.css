@@ -1,0 +1,25 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.listItem {
+  border: 1px solid silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 260px;
+  margin: 0 20px 20px 0;
+  padding: 10px;
+}
+
+.amountBlock {
+  display: flex;
+  width: 200px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-around;
+}
